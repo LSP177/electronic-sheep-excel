@@ -1,8 +1,18 @@
-# 电子羊表格 (Electronic Sheep Excel Helper)
+<div align="center">
+  <img src="docs/logo.png" alt="电子羊表格 Logo" width="128" />
+  <h1>电子羊表格 (Electronic Sheep Excel Helper)</h1>
+  <p>面向 Windows 平台 Microsoft Excel 的双前端数据清洗、核对与脱敏工具（MIT 开源免费版）</p>
+  <p>
+    <a href="https://github.com/LSP177/electronic-sheep-excel/releases">下载免编译安装包 (Releases)</a> ·
+    <a href="#核心特性">核心特性</a> ·
+    <a href="#目录结构">目录结构</a> ·
+    <a href="LICENSE">MIT License</a>
+  </p>
+</div>
 
-**电子羊表格** 是一款面向 Windows 平台 Microsoft Excel 的双前端数据清洗、核对与脱敏工具，内置「操作前强制基线备份 + 失败自动熔断」安全机制，专为高频处理复杂脏表格的供应链、财务、采购及运营场景设计。
+**电子羊表格** 内置「操作前强制基线备份 + 失败自动熔断」安全机制，专为高频处理复杂脏表格的供应链、财务、采购及运营场景设计。
 
-> 开源版基于 **MIT License** 完全免费开放，已移除所有授权校验与次数限制。
+> 开源版基于 **MIT License** 完全免费开放，已移除所有授权校验与次数限制。普通用户可直接前往 [Releases 页面](https://github.com/LSP177/electronic-sheep-excel/releases) 下载一键安装程序，无需自行编译。
 
 ---
 
