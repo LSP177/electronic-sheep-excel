@@ -3,16 +3,55 @@
   <h1>电子羊表格 (Electronic Sheep Excel Helper)</h1>
   <p>面向 Windows 平台 Microsoft Excel 的双前端数据清洗、核对与脱敏工具（MIT 开源免费版）</p>
   <p>
-    <a href="https://github.com/LSP177/electronic-sheep-excel/releases">下载免编译安装包 (Releases)</a> ·
+    <a href="#-一键下载与安装">一键下载安装</a> ·
+    <a href="#-让-ai-助手帮你安装-for-ai-agents">AI 一键代装</a> ·
     <a href="#核心特性">核心特性</a> ·
     <a href="#目录结构">目录结构</a> ·
     <a href="LICENSE">MIT License</a>
   </p>
 </div>
 
-**电子羊表格** 内置「操作前强制基线备份 + 失败自动熔断」安全机制，专为高频处理复杂脏表格的供应链、财务、采购及运营场景设计。
+**电子羊表格** 内置「操作前强制基线备份 + 失败自动熔断」安全机制，专为高频处理复杂脏表格的供应链、财务、采购及运营场景设计。基于 **MIT License** 完全免费开源，无任何授权校验与次数限制。
 
-> 开源版基于 **MIT License** 完全免费开放，已移除所有授权校验与次数限制。普通用户可直接前往 [Releases 页面](https://github.com/LSP177/electronic-sheep-excel/releases) 下载一键安装程序，无需自行编译。
+---
+
+## ⚡ 一键下载与安装
+
+> ⚠️ **运行前提**：仅支持 Windows 上的桌面版 **Microsoft Excel**（暂不支持 WPS、macOS 或网页版 Excel）；安装前请先关闭所有 Excel 窗口。
+
+### 方式一：普通用户直接点击下载
+
+| 版本 | 适用环境 | 直接下载链接 | 说明 |
+| :--- | :--- | :--- | :--- |
+| **现代版（推荐）** | 64 位 Excel + .NET 4.8 + WebView2 | [下载现代版 (.zip)](https://github.com/LSP177/electronic-sheep-excel/releases/latest/download/ElectronicSheepExcel-v1.0.0-oss-Modern-Setup.zip) | 带右侧边栏交互工作台，**请先解压再双击运行 exe** |
+| **兼容版** | 32 位 / 64 位 Excel 通用 | [下载兼容版 (.exe)](https://github.com/LSP177/electronic-sheep-excel/releases/latest/download/ElectronicSheepExcel-v1.0.0-oss-Legacy-Setup.exe) | 顶部 Ribbon 经典菜单，无需 WebView2，直接双击安装 |
+| **校验文件** | 可选完整性核对 | [SHA256SUMS.txt](https://github.com/LSP177/electronic-sheep-excel/releases/latest/download/SHA256SUMS.txt) | 核对安装包 SHA-256 哈希值 |
+
+### 方式二：PowerShell 一行自动安装
+
+会自动检测本地 Excel 位数（64 位优先现代版、32 位自动选兼容版）、下载 Release 安装包并自动校验 SHA-256：
+
+```powershell
+irm https://raw.githubusercontent.com/LSP177/electronic-sheep-excel/main/scripts/install-from-release.ps1 | iex
+```
+
+---
+
+## 🤖 让 AI 助手帮你安装 (For AI Agents)
+
+如果你正在使用 **Antigravity / Claude Code / Codex / Cursor** 等 AI 编程助手，只需要把仓库地址发给它并说一句：
+
+> **“读取 `https://github.com/LSP177/electronic-sheep-excel` 里的 `README.md` 和 `AGENTS.md`，帮我自动检测 Excel 版本并安装好电子羊表格”**
+
+AI 智能体只需运行仓库内置脚本 [`scripts/install-from-release.ps1`](scripts/install-from-release.ps1) 即可完成全自动探测、校验与静默安装（详细规则见 [`AGENTS.md`](AGENTS.md)）：
+
+```powershell
+# 已克隆仓库时执行：
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-from-release.ps1
+
+# 或无需克隆直接远程安装：
+irm https://raw.githubusercontent.com/LSP177/electronic-sheep-excel/main/scripts/install-from-release.ps1 | iex
+```
 
 ---
 
@@ -49,24 +88,19 @@ electronic-sheep-excel/
 │   ├── taskpane/        # 现代版前端：C# VSTO 外接程序 + WebView2 侧边栏 UI
 │   └── legacy/          # 兼容版前端：customUI14 Ribbon 菜单与经典 VBA 入口
 ├── installer/           # PowerShell 安装/卸载脚本与自解压引导程序 (Setup.cs)
+├── scripts/             # 一键从 GitHub Releases 自动检测并安装的脚本
 ├── build/               # 自动化编译与打包管线 (VBA 引擎注入、VSTO 编译、安装包封装)
+├── docs/                # 项目 Logo 与说明资源
+├── AGENTS.md            # 给 AI 智能体的安全安装与操作规范
 ├── version.json         # 版本与开源版元数据
 └── LICENSE              # MIT License
 ```
 
 ---
 
-## 运行环境要求
-
-- **操作系统**：Windows 10 / Windows 11
-- **办公软件**：Microsoft Excel 桌面版（暂不支持 WPS、macOS 或网页版 Excel）
-- **现代版额外依赖**：.NET Framework 4.8 与 Microsoft Edge WebView2 Runtime
-
----
-
 ## 从源码构建（开发者）
 
-> 构建共享 `.xlam` 引擎需要本地安装 Microsoft Excel 桌面版，并传入包含种子文件（`DataHelper_PocEngine.xlam` 与 `TaskPaneHost.xlsx`）的目录。
+> 普通用户直接通过上方 Releases 安装包使用即可，无需自行编译。如需修改源码重新构建 `.xlam` 与 `.vsto`：
 
 1. **构建核心引擎**：
    ```powershell
