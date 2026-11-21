@@ -1,0 +1,18 @@
+# Build outputs and packaged installers
+build/output/
+dist/
+assets/
+*.exe
+*.zip
+*.xlam
+*.dll
+*.cer
+*.vsto
+*.manifest
+
+# Local IDE / OS artifacts
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+__pycache__/

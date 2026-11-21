@@ -1,0 +1,11 @@
+﻿{
+  "CoreVersion": "1.0.0",
+  "TaskPaneFrontend": "1.0.0",
+  "LegacyFrontend": "1.0.0",
+  "Product": "ElectronicSheepExcel",
+  "Version": "1.0.0-oss",
+  "Status": "OSS",
+  "License": "MIT",
+  "CoreFile": "DataHelper_PocEngine.xlam",
+  "LicenseEnabled": false
+}

@@ -1,0 +1,41 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="DH1_OnLoad">
+  <ribbon><tabs><tab id="dh1Legacy" label="电子羊表格" getVisible="DH1_LegacyVisible">
+    <group id="dh1CheckGroup" label="体检">
+      <button id="dh1Sheet" label="当前表体检" size="large" imageMso="TableProperties" onAction="DH1_OnCheck"/>
+      <button id="dh1Workbook" label="全簿体检" onAction="DH1_OnCheck"/>
+      <button id="dh1Report" label="生成报告" onAction="DH1_OnReport"/>
+      <button id="dh1Backup" label="打开备份" imageMso="FileOpen" onAction="DH1_OnBackup"/>
+    </group>
+    <group id="dh1CleanGroup" label="区域整理">
+      <button id="dh1Space" label="区域清理" size="large" imageMso="Clear" onAction="DH1_OnAction"/>
+      <button id="dh1Unmerge" label="拆分合并" onAction="DH1_OnAction"/>
+      <button id="dh1Blank" label="删除空行" onAction="DH1_OnAction"/>
+      <button id="dh1Mark" label="标记重复" onAction="DH1_OnAction"/>
+      <button id="dh1Dedup" label="删除重复" onAction="DH1_OnAction"/>
+    </group>
+    <group id="dh1Numbers" label="数值与核对">
+      <button id="dh1Unit" label="数字转换" onAction="DH1_OnAction"/>
+      <button id="dh1Split" label="单位拆分" onAction="DH1_OnAction"/>
+      <button id="dh1Date" label="日期规范化" onAction="DH1_OnAction"/>
+      <button id="dh1Lookup" label="跨表补全" size="large" imageMso="TableInsert" onAction="DH1_OnAction"/>
+      <button id="dh1Reconcile" label="两表对账" onAction="DH1_OnAction"/>
+    </group>
+    <group id="dh1Tables" label="表格处理">
+      <button id="dh1Append" label="多表追加" onAction="DH1_OnAction"/>
+      <button id="dh1Unpivot" label="宽表转长表" onAction="DH1_OnAction"/>
+      <button id="dh1SplitSheet" label="按列拆表" onAction="DH1_OnAction"/>
+    </group>
+    <group id="dh1Privacy" label="隐私与交付">
+      <button id="dh1Phone" label="手机号脱敏" onAction="DH1_OnAction"/>
+      <button id="dh1ID" label="身份证脱敏" onAction="DH1_OnAction"/>
+      <button id="dh1Name" label="姓名脱敏" onAction="DH1_OnAction"/>
+      <button id="dh1Delivery" label="交表礼仪" onAction="DH1_OnAction"/>
+      <button id="dh1Clear" label="清除临时标记" onAction="DH1_OnAction"/>
+      <button id="dh1Receipt" label="交差小票" onAction="DH1_OnReceipt"/>
+    </group>
+    <group id="dh1LicenseGroup" label="开源版">
+      <labelControl id="dh1LicenseState" getLabel="DH1_LicenseLabel"/>
+      <button id="dh1Activate" label="关于开源版" imageMso="Info" onAction="DH1_OnLicense"/>
+    </group>
+  </tab></tabs></ribbon>
+</customUI>

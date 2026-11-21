@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="AppManifest">
+  <UsingTask TaskName="GenerateOfficeAddInManifest" AssemblyFile="$(OfficeTasks)/Microsoft.VisualStudio.Tools.Office.BuildTasks.dll" />
+  <UsingTask TaskName="PregenerateApplicationManifest" AssemblyFile="$(OfficeTasks)/Microsoft.VisualStudio.Tools.Applications.BuildTasks.dll" />
+  <UsingTask TaskName="SetInclusionListEntry" AssemblyFile="$(OfficeTasks)/Microsoft.VisualStudio.Tools.Office.BuildTasks.dll" />
+  <Target Name="AppManifest">
+    <GenerateOfficeAddInManifest FriendlyName="电子羊表格" KeyName="DataHelper.TaskPane" Description="电子羊表格任务窗格" OfficeApplication="Excel" LoadBehavior="0" TargetFramework="v4.8">
+      <Output TaskParameter="OutputManifest" ItemName="OfficeManifest" />
+    </GenerateOfficeAddInManifest>
+    <PregenerateApplicationManifest OutputPath="$(Out)/" TargetFileName="DataHelperTaskPanePoc.dll" EmbeddedManifestFileName="DataHelperTaskPanePoc.pregam" InputManifest="@(OfficeManifest)" UpdateEnabled="false" UpdateInterval="7" UpdateIntervalUnits="days">
+      <Output TaskParameter="EmbeddedManifestFileNameWithPath" ItemName="EmbeddedManifest" />
+    </PregenerateApplicationManifest>
+    <ItemGroup>
+      <Managed Include="$(Out)/DataHelperTaskPanePoc.dll;$(Out)/Microsoft.Office.Tools.Common.v4.0.Utilities.dll;$(Out)/Microsoft.Web.WebView2.Core.dll;$(Out)/Microsoft.Web.WebView2.WinForms.dll"><DependencyType>Install</DependencyType></Managed>
+      <Assets Include="$(Out)/WebView2Loader.dll;$(Out)/index.html;$(Out)/bridge-client.js"><TargetPath>%(Filename)%(Extension)</TargetPath></Assets>
+    </ItemGroup>
+    <GenerateApplicationManifest AssemblyName="DataHelperTaskPanePoc.dll" AssemblyVersion="1.0.0.0" ClrVersion="4.0.30319.0" Dependencies="@(Managed)" Files="@(Assets)" Description="电子羊表格任务窗格" InputManifest="@(EmbeddedManifest)" ManifestType="ClickOnce" OutputManifest="$(Out)/DataHelperTaskPanePoc.dll.manifest" OSVersion="6.1.7601.0" Platform="AnyCPU" TargetCulture="*" TargetFrameworkVersion="v4.8" />
+  </Target>
+  <Target Name="Deployment">
+    <ItemGroup><ApplicationManifest Include="$(Out)/DataHelperTaskPanePoc.dll.manifest"><TargetPath>DataHelperTaskPanePoc.dll.manifest</TargetPath></ApplicationManifest></ItemGroup>
+    <GenerateDeploymentManifest EntryPoint="@(ApplicationManifest)" AssemblyName="DataHelperTaskPanePoc.vsto" AssemblyVersion="1.0.0.0" OutputManifest="$(Out)/DataHelperTaskPanePoc.vsto" Platform="AnyCPU" Install="false" TargetFrameworkMoniker=".NETFramework,Version=v4.8" TargetFrameworkVersion="v4.8" />
+  </Target>
+  <Target Name="TrustLocalProbe"><SetInclusionListEntry DeploymentManifestFullPath="$(Out)/DataHelperTaskPanePoc.vsto" CertificateThumbprint="$(Cert)" /></Target>
+</Project>
